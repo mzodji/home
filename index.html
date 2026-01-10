@@ -2,1449 +2,782 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title> Marcel Zodji </title>
+  <title>Marcel Zodji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Marcel Zodji — Academic homepage: research, publications, presentations, teaching." />
 
-  <!-- Police distinctive -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Serif:opsz,wght@8..144,400;8..144,600;8..144,700;8..144,800&display=swap"
     rel="stylesheet"
   />
 
   <style>
-    :root {
-      /* Fond plus foncé, gris bleuté */
-      --bg-page: #4f5874;        /* fond global plus sombre */
-      --card-bg: #c2cbe3;        /* cadrans plus foncés */
-      --text: #000000;           /* texte noir */
-      --text-muted: #111827;     /* texte secondaire foncé */
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.16);
-      --border-subtle: #a8b3d2;
-      --font-sans: "Roboto Serif", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      --max-width: 1120px;
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.6);
-      --transition-fast: 200ms ease;
+    :root{
+      /* Background requested */
+      --bg0:#2B3A4A;
+      --bg1:#243241;
+      --bg2:#3B4E63;
 
-      /* Paramètres pour la taille de la photo */
-      --photo-base-width: 300px;   /* largeur de base */
-      --photo-scale: 1.2;          /* facteur d’échelle : 1, 1.1, 1.2, ... */
+      /* Cards */
+      --card: rgba(232, 245, 255, 0.78);
+      --card-strong: rgba(232, 245, 255, 0.88);
+      --border: rgba(2, 6, 23, 0.18);
+
+      /* Text (keep readable; not “extra bold”) */
+      --text: #071A3A;
+      --muted:#163A6B;
+
+      --accentA:#0B84FF;
+      --accentB:#00C2FF;
+      --accentSoft: rgba(11, 132, 255, 0.20);
+
+      --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: "Roboto Serif", ui-serif, Georgia, serif;
+
+      --max: 1120px;
+      --radiusXL: 26px;
+      --pill: 999px;
+
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+      --shadowSoft: 0 12px 26px rgba(0, 0, 0, 0.26);
+
+      --t: 180ms ease;
+
+      --photo-base: 300px;
+      --photo-scale: 1.15;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
 
-    .pill-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .icon-free-boundary,
-    .icon-bubbly-liquid {
-      width: 18px;
-      height: 18px;
-      object-fit: contain;
-      display: block;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: radial-gradient(circle at top, #6b7594 0, var(--bg-page) 45%, #3b4258 100%);
+    body{
+      font-family: var(--font-body);
       color: var(--text);
-      line-height: 1.6;
+      background:
+        radial-gradient(900px 560px at 12% 10%, rgba(0, 194, 255, 0.12), transparent 58%),
+        radial-gradient(860px 560px at 88% 16%, rgba(11, 132, 255, 0.10), transparent 60%),
+        linear-gradient(180deg, var(--bg2) 0%, var(--bg1) 42%, var(--bg0) 100%);
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      font-weight: 500;
-      font-size: 20px;
+      font-weight: 400;            /* lighter base */
+      font-size: 18px;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    a{color: var(--accentA); text-decoration:none;}
+    a:hover{ text-decoration: underline; }
 
-    a:hover {
-      text-decoration: underline;
+    .skip-link{
+      position:absolute; left:-999px; top:10px;
+      background: rgba(232,245,255,0.92);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      z-index: 9999;
+      box-shadow: var(--shadowSoft);
     }
+    .skip-link:focus{ left:10px; }
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .wrapper {
-      max-width: var(--max-width);
+    .wrap{
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
+      padding: 1.2rem 1.25rem 3.2rem;
     }
 
-    /* Header / nav */
-
-    .site-header {
+    header.site-header{
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 50;
       backdrop-filter: blur(14px);
-      background: rgba(241, 245, 249, 0.96);
-      border-bottom: 1px solid rgba(191, 199, 216, 0.9);
+      background: rgba(43, 58, 74, 0.70);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     }
-
-    .nav {
-      max-width: var(--max-width);
+    .nav{
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 0.75rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap: 1rem;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .nav-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 30%;
-      background: radial-gradient(circle at 30% 20%, #2563eb, #60a5fa 45%, #1d4ed8);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
+    /* Removed the MZ logo block */
+    .brand-text{
+      font-family: var(--font-display);
+      font-size: 1.10rem;
       font-weight: 700;
-      color: #eff6ff;
-      box-shadow: 0 3px 12px rgba(37, 99, 235, 0.6);
-    }
-
-    .nav-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: .03em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: #EAF4FF;
+      line-height: 1.1;
     }
 
-    .nav-tabs {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.9rem;
+    .nav-links{
+      display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;
     }
-
-    .nav-tab {
-      padding: 0.35rem 0.9rem;
-      border-radius: var(--radius-pill);
-      color: var(--text-muted);
-      border: 1px solid transparent;
-      background: transparent;
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast),
-        border-color var(--transition-fast), transform 120ms ease-out;
-    }
-
-    .nav-tab:hover {
-      background: rgba(219, 234, 254, 0.95);
-      border-color: rgba(148, 163, 184, 0.6);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .nav-tab.active {
-      background: #2563eb;
-      color: #eff6ff;
-      border-color: #2563eb;
-      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.6);
-    }
-
-    .nav-toggle {
-      display: none;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #e5e7f5;
-      color: var(--text);
-      border-radius: var(--radius-pill);
-      padding: 0.25rem 0.7rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-
-    /* Cadrans */
-
-    .hero-card,
-    .card {
-      margin-top: 1.7rem;
-      background: var(--card-bg);
-      border-radius: 26px;
-      padding: 1.7rem 1.7rem 1.4rem;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .card {
-      margin-top: 1.4rem;
-      border-radius: var(--radius-lg);
-      padding: 1.3rem 1.4rem;
-    }
-
-    .card-teaching {
-      padding: 2rem 2.4rem;
-      border-radius: 22px;
-    }
-
-    /* Grille du 1er cadran : photo à gauche, texte à droite */
-    .hero-grid {
-      display: grid;
-      grid-template-columns: calc(var(--photo-base-width) * var(--photo-scale)) minmax(0, 1fr);
-      gap: 1.8rem;
-      align-items: flex-start;
-    }
-
-    .hero-left-col {
-      width: calc(var(--photo-base-width) * var(--photo-scale));
-      margin-top: 0.75cm; /* pour descendre la photo */
-    }
-
-    .hero-left-header {
-      margin-bottom: 0.1rem;
-    }
-
-    .hero-name {
-      font-size: 2.2rem;
-      line-height: 1.15;
-      letter-spacing: 0.02em;
-      font-weight: 600;
-      color: var(--text); /* pas de couleur spéciale */
-    }
-
-    .hero-role {
-      margin-top: 0.35rem;
-      font-size: 0.96rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .hero-text {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      text-align: justify;
-    }
-
-    .hero-text strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .hero-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1.2rem;
-      font-size: 0.85rem;
-    }
-
-    .hero-links-row {
-      margin-top: 0.9rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      align-items: center;
-    }
-
-    .hero-links-row .btn {
-      flex: 0 0 auto;
-      justify-content: center;
-      padding: 0.5rem 0.9rem;
-    }
-
-    .hero-links-row .btn-compact {
-      padding: 0.35rem 0.7rem;
-      font-size: 0.8rem;
-    }
-
-    .meta-pill {
-      padding: 0.4rem 0.75rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #edf0f8;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+    .nav-links a{
+      display:inline-flex;align-items:center;gap:.45rem;
+      padding:.40rem .82rem;border-radius: var(--pill);
+      border:1px solid rgba(255,255,255,0.16);
+      background: rgba(232,245,255,0.14);
+      color: #EAF4FF;
+      text-decoration:none;
+      transition: transform 120ms ease-out, background var(--t), border-color var(--t), box-shadow var(--t);
+      font-size: .92rem;
       white-space: nowrap;
-      color: var(--text-muted);
+      font-weight: 600;
     }
-
-    .meta-pill span.emoji {
-      font-size: 0.9rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: var(--radius-pill);
-      font-size: 0.85rem;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #f1f5ff;
-      color: var(--text);
-      cursor: pointer;
-      transition: background var(--transition-fast), transform 120ms ease-out,
-        box-shadow var(--transition-fast), border-color var(--transition-fast);
-    }
-
-    .btn:hover {
-      background: #e0e7ff;
+    .nav-links a:hover{
       transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(148, 163, 184, 0.6);
+      background: rgba(232,245,255,0.22);
+      border-color: rgba(11,132,255,0.40);
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.22);
+    }
+    .nav-links a.active{
+      border-color: rgba(11, 132, 255, 0.62);
+      background: rgba(11, 132, 255, 0.20);
+      box-shadow: 0 12px 24px rgba(11, 132, 255, 0.18);
     }
 
-    .btn-icon {
-      font-size: 1rem;
+    .nav-toggle{
+      display:none;
+      border:1px solid rgba(255,255,255,0.18);
+      background: rgba(232,245,255,0.14);
+      color: #EAF4FF;
+      border-radius: var(--pill);
+      padding:.36rem .72rem;
+      font-size:.9rem;
+      cursor:pointer;
+      font-weight: 600;
     }
 
-    /* Zone photo */
+    .card{
+      margin-top:1.35rem;
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radiusXL);
+      padding:1.55rem 1.55rem 1.4rem;
+      box-shadow: var(--shadow);
+    }
+    .card.strong{ background: var(--card-strong); }
 
-    .hero-photo-area {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
+    .section-title{
+      display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+      margin-bottom:.75rem;
+    }
+    .section-title h2{
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      display:flex;align-items:center;gap:.55rem;
+      color: var(--text);
     }
 
-    .hero-photo-frame {
-      width: 100%;               /* occupe toute la largeur de la colonne */
+    .hero{
+      display:grid;
+      grid-template-columns: calc(var(--photo-base) * var(--photo-scale)) minmax(0,1fr);
+      gap: 1.7rem;
+      align-items:start;
+    }
+    .photo{
+      width: calc(var(--photo-base) * var(--photo-scale));
       border-radius: 24px;
-      overflow: hidden;
-      background: #f9fafb;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-weight: 500;
-      font-size: 0.85rem;
-      text-align: center;
+      overflow:hidden;
+      border:1px solid rgba(2,6,23,0.18);
+      box-shadow: var(--shadowSoft);
+      background: rgba(232,245,255,0.96);
     }
+    .photo img{width:100%;height:auto;display:block;object-fit:cover;}
 
-    .hero-photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Pills */
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.6rem;
-    }
-
-    .pill {
-      font-size: 0.8rem;
-      padding: 0.22rem 0.7rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #b8c4f2;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      cursor: default;
-    }
-
-    .pill-link {
-      cursor: pointer;
-    }
-
-    .pill-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .pill-icon {
-      font-size: 0.9rem;
-    }
-
-    .pill-inline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.15rem 0.6rem;
-      margin-left: 0.25rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #e0e5ff;
-      font-size: 0.82rem;
+    .hero h1{
+      font-family: var(--font-display);
+      font-size: 2.15rem;
+      line-height: 1.10;
+      font-weight: 800; /* title can be strong */
+      letter-spacing: .01em;
+      margin-bottom: .35rem;
       color: var(--text);
     }
-
-    .pill-inline:hover {
-      border-color: var(--accent);
-      text-decoration: none;
-      color: var(--accent);
+    .hero .role{
+      color: var(--muted);
+      font-size: 1.02rem;
+      font-weight: 500; /* not bold */
     }
-
-    /* Card headers / corps */
-
-    .card-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: var(--text); /* pas de couleur spéciale pour les titres */
-    }
-
-    .card-title span.icon {
-      font-size: 1.05rem;
-    }
-
-    .card-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    .card-body {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .about-text p + p {
-      margin-top: 0.6rem;
-    }
-
-    .about-text p {
+    .hero p{
+      margin-top:.9rem;
+      color: var(--muted);
+      font-size: 1.00rem;
       text-align: justify;
+      font-weight: 400; /* normal text */
     }
 
-    .pub-list,
-    .talk-list,
-    .teach-list {
-      list-style: none;
-      margin-top: 0.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .pub-item,
-    .talk-item,
-    .teach-item {
-      position: relative;
-      padding-left: 0;
-    }
-
-    .teach-item::before {
-      content: "";
-      position: absolute;
-      left: 0.15rem;
-      top: 0.4rem;
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft);
-    }
-
-    .teach-item {
-      padding-left: 1.1rem;
-    }
-
-    .pub-title {
+    .links-block{margin-top:1.05rem;display:flex;flex-direction:column;gap:.7rem;}
+    .meta-row{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;}
+    .meta-pill{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:.40rem .75rem;border-radius: var(--pill);
+      border:1px solid rgba(2,6,23,0.16);
+      background: rgba(232,245,255,0.74);
       color: var(--text);
-      font-weight: 500;
+      font-weight: 500; /* not bold */
+      font-size: .92rem;
+      white-space: nowrap;
     }
+    .meta-pill svg{width:16px;height:16px;opacity:.98;}
 
-    .pub-journal {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-top: 0.1rem;
-    }
-
-    .pub-links {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.15rem;
-    }
-
-    .year-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .teach-year-title {
-      font-weight: 600;
-      font-size: 0.86rem;
+    .btn-row{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;}
+    .icon-btn{
+      display:inline-flex;align-items:center;gap:.55rem;
+      padding:.48rem .86rem;border-radius: var(--pill);
+      border:1px solid rgba(2,6,23,0.16);
+      background: rgba(232,245,255,0.74);
       color: var(--text);
-      margin-bottom: 0.15rem;
+      font-weight: 600; /* moderate */
+      font-size: .92rem;
+      text-decoration:none;
+      transition: transform 120ms ease-out, background var(--t), border-color var(--t), box-shadow var(--t);
     }
-
-    .teach-item ul {
-      list-style: none;
-      margin-top: 0.15rem;
+    .icon-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(232,245,255,0.92);
+      border-color: rgba(11,132,255,0.46);
+      box-shadow: 0 14px 26px rgba(0,0,0,0.16);
+      text-decoration:none;
     }
-
-    .teach-item li {
-      margin-top: 0.18rem;
-      font-size: 0.83rem;
-    }
-
-    .assist-box {
-      margin-top: 0.2rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      text-align: justify;
-    }
-
-    .item-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-    }
-
-    .item-index {
+    .icon{
+      width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
+      border-radius: 10px;border:1px solid rgba(2,6,23,0.16);
+      background: linear-gradient(135deg, rgba(11,132,255,0.22), rgba(0,194,255,0.16));
+      box-shadow: 0 10px 18px rgba(11,132,255,0.12);
       flex: 0 0 auto;
-      width: 1.3rem;
-      height: 1.3rem;
-      border-radius: 50%;
-      border: 1.5px solid var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: var(--accent);
-      background: #e3e7ff;
-      box-shadow: 0 0 0 2px var(--accent-soft);
-      margin-top: 0.18rem;
+      color: var(--text);
     }
+    .icon svg{width:13px;height:13px;}
 
-    .item-main {
-      flex: 1 1 auto;
-    }
-
-    .thesis-meta {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 0.12rem;
-    }
-
-    .thesis-meta-indent {
-      margin-left: 6.5rem;
-    }
-
-    .thesis-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+    .subhead{
+      margin-top:1.1rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: .01em;
       color: var(--text);
     }
 
-    .role-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
+    ul.num{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-top:.65rem;}
+    .row{display:flex;align-items:flex-start;gap:.8rem;}
+    .badge{
+      flex:0 0 auto;width:32px;height:32px;border-radius:999px;
+      border:1.5px solid rgba(11,132,255,0.62);
+      background: rgba(232,245,255,0.86);
+      box-shadow: 0 0 0 3px var(--accentSoft);
+      display:flex;align-items:center;justify-content:center;
+      font-weight: 700; /* moderate */
+      color: #071A3A;
+      font-size: .86rem;
+      margin-top: .15rem;
     }
 
-    .talk-indent {
-      display: inline-block;
-      margin-left: 7rem;
+    .item{
+      padding:.92rem .95rem;border-radius:16px;
+      border:1px solid rgba(2,6,23,0.16);
+      background: rgba(232,245,255,0.70);
     }
-
-    .teach-section-title {
-      font-size: 0.92rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .footer {
-      border-top: 1px solid rgba(191, 199, 216, 0.9);
-      margin-top: 2.2rem;
-      padding-top: 1.1rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .to-top {
-      border-radius: var(--radius-pill);
-      padding: 0.25rem 0.7rem;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #f9fafb;
-      cursor: pointer;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .to-top:hover {
+    .item-title{
+      font-weight: 600; /* not bold-heavy */
       color: var(--text);
-      border-color: var(--accent);
+      font-size: 1.00rem;
+    }
+    .item-meta{
+      margin-top:.22rem;
+      color: var(--muted);
+      font-size: .94rem;
+      font-weight: 400;
+    }
+    .item-links{
+      margin-top:.30rem;
+      font-size: .92rem;
+      color: var(--muted);
+      font-weight: 500;
     }
 
-    .section-panel {
-      display: none;
-    }
-    .section-panel.active {
-      display: block;
-    }
-
-    @media (max-width: 880px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-photo-area {
-        order: -1;
-      }
-      .hero-left-col {
-        width: 100%;
-        margin-top: 0.5rem;
-      }
+    /* Presentations: titles NOT bold */
+    .present-title{
+      font-weight: 400;
+      color: var(--text);
+      font-size: 1.00rem;
     }
 
-    @media (max-width: 720px) {
-      .nav-tabs {
-        display: none;
-      }
-      .nav-tabs.open {
+    ul.bullets{
+      margin-top:.6rem;
+      padding-left:1.1rem;
+      color: var(--muted);
+      display:flex;flex-direction:column;gap:.45rem;
+      font-weight: 400;
+    }
+    ul.bullets li{line-height:1.55;font-size:0.98rem;}
+
+    .teach-card{
+      margin-top:.65rem;padding:.95rem 1rem;border-radius:16px;
+      border:1px solid rgba(2,6,23,0.16);
+      background: rgba(232,245,255,0.70);
+    }
+    .teach-card .teach-title{
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom:.35rem;
+      font-size: 1.00rem;
+      font-family: var(--font-display);
+    }
+
+    footer{
+      margin-top:2.2rem;padding-top:1.1rem;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;
+      color: rgba(232,245,255,0.86);
+      font-size:.90rem;
+      font-weight: 400;
+    }
+    footer small{color: rgba(232,245,255,0.86);}
+    .to-top{
+      border-radius: var(--pill);
+      padding:.38rem .72rem;
+      border:1px solid rgba(255,255,255,0.18);
+      background: rgba(232,245,255,0.14);
+      color: rgba(232,245,255,0.92);
+      cursor:pointer;
+      font-weight: 600;
+    }
+    .to-top:hover{
+      border-color: rgba(11,132,255,0.46);
+      box-shadow: 0 14px 26px rgba(0,0,0,0.22);
+    }
+
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: minmax(0,1fr); }
+      .photo{ width: 100%; }
+    }
+    @media (max-width: 760px){
+      .nav-toggle{ display:inline-flex; }
+      .nav-links{
+        display:none;
         position: fixed;
-        left: 0;
-        right: 0;
-        top: 3.1rem;
-        padding: 0.55rem 1.25rem 0.9rem;
-        background: rgba(241, 245, 249, 0.98);
-        border-bottom: 1px solid rgba(191, 199, 216, 0.9);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        left: 0; right: 0;
+        top: 3.7rem;
+        padding: .85rem 1.25rem 1.0rem;
+        background: rgba(43, 58, 74, 0.92);
+        border-bottom: 1px solid rgba(255,255,255,0.14);
+        backdrop-filter: blur(14px);
+        gap: .55rem;
+        justify-content:flex-start;
       }
-      .nav-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
-      .wrapper {
-        padding-top: 1rem;
-      }
+      .nav-links.open{ display:flex; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior: auto; }
+      *{ transition: none !important; }
     }
   </style>
 </head>
+
 <body>
-  <div class="page" id="top">
-    <!-- NAVIGATION -->
-    <header class="site-header">
-      <nav class="nav">
-        <div class="nav-left">
-          <div class="nav-logo">MZ</div>
-          <div class="nav-title">Marcel&nbsp;Zodji</div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand-text">Marcel Zodji</div>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">
+        Menu
+      </button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#about" data-spy>About</a>
+        <a href="#research" data-spy>Research</a>
+        <a href="#publications" data-spy>Publications</a>
+        <a href="#presentations" data-spy>Presentations</a>
+        <a href="#teaching" data-spy>Teaching</a>
+        <a href="#mentoring" data-spy>Mentoring</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap" id="main">
+    <!-- ABOUT -->
+    <section class="card strong" id="about">
+      <div class="hero">
+        <div class="photo">
+          <img src="profil.jpeg" alt="Photo of Marcel Zodji" />
         </div>
-        <button class="nav-toggle" id="navToggle">Menu</button>
-        <div class="nav-tabs" id="navTabs">
-          <button class="nav-tab active" data-target="home-panel">Home</button>
-          <button class="nav-tab" data-target="research-panel">Research</button>
-          <button class="nav-tab" data-target="teaching-panel">Teaching</button>
-        </div>
-      </nav>
-    </header>
 
-    <main class="wrapper">
-      <!-- PANEL 1 : ACCUEIL -->
-      <section class="section-panel active" id="home-panel">
-        <!-- 1er cadran : photo gauche, texte droite -->
-        <section class="hero-card">
-          <div class="hero-grid">
-            <!-- Colonne gauche : photo -->
-            <aside class="hero-photo-area">
-              <div class="hero-left-col">
-                <div class="hero-photo-frame">
-                  <img src="profil.jpeg" alt="Photo of Marcel Zodji"/>
-                </div>
+        <div>
+          <h1>About me</h1>
+          <div class="role">Postdoctoral researcher · LaMME (Université d’Évry)</div>
+
+          <p>
+            I am currently a postdoctoral researcher at the
+            <a href="http://www.math-evry.cnrs.fr" target="_blank" rel="noopener noreferrer">
+              Laboratoire de Mathématiques et Modélisation d'Évry</a> (LaMME), working under the supervision of
+            <a href="http://math.maths.univ-evry.fr/mlatocca/fr/index.html" target="_blank" rel="noopener noreferrer">
+              Mickaël Latocca</a>
+            and
+            <a href="https://perso.pages.math.cnrs.fr/users/thomas.alazard/" target="_blank" rel="noopener noreferrer">
+              Thomas Alazard</a>.
+          </p>
+
+          <p>
+            Before that, I prepared my PhD at
+            <a href="https://www.math.u-paris.fr/formations/doctorats/index" target="_blank" rel="noopener noreferrer">
+              Université Paris Cité</a>,
+            under the supervision of
+            <a href="https://webusers.imj-prg.fr/~cosmin.burtea/" target="_blank" rel="noopener noreferrer">
+              Cosmin Burtea</a>
+            and
+            <a href="https://dgerardv.github.io" target="_blank" rel="noopener noreferrer">
+              David Gérard-Varet</a>.
+            I was supported by the
+            <a href="https://sciencesmaths-paris.fr/d-autres-programmes-et-projets/mathinparis2020" target="_blank" rel="noopener noreferrer">
+              MathInParis2020</a>
+            doctoral programme of the Fondation Sciences Mathématiques de Paris.
+          </p>
+
+          <div class="links-block" aria-label="Links and contact">
+            <div class="meta-row">
+              <div class="meta-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="m6.5 7 5.5 4 5.5-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>marcel(dot)zodji(at)univ-evry(dot)fr</span>
               </div>
-            </aside>
 
-            <!-- Colonne droite : description -->
-            <div>
-              <div class="hero-left-header">
-                <h1 class="hero-name">About me</h1>
-              </div>
-
-              <p class="hero-text">
-                I am currently a postdoctoral researcher at the
-                <a href="http://www.math-evry.cnrs.fr"
-                   target="_blank"
-                   rel="noopener noreferrer"> Laboratoire de Mathématiques et Modélisation d'Évry</a> (LaMME), working under the supervision of
-                <a href="http://math.maths.univ-evry.fr/mlatocca/fr/index.html"
-                   target="_blank"
-                   rel="noopener noreferrer"> Mickaël Latocca
-                </a>
-                and
-                <a href="https://perso.pages.math.cnrs.fr/users/thomas.alazard/"
-                   target="_blank"
-                   rel="noopener noreferrer"> Thomas Alazard</a>.
-              </p>
-
-              <p class="hero-text">
-                Before that, I prepared my PhD at
-                <a href="https://www.math.u-paris.fr/formations/doctorats/index"
-                   target="_blank"
-                   rel="noopener noreferrer"> Université Paris Cité</a>, under the supervision of
-                <a href="https://webusers.imj-prg.fr/~cosmin.burtea/"
-                   target="_blank"
-                   rel="noopener noreferrer"> Cosmin Burtea</a> and
-                <a href="https://dgerardv.github.io"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  David Gérard-Varet</a>.
-                I was supported by the
-                <a href="https://sciencesmaths-paris.fr/d-autres-programmes-et-projets/mathinparis2020"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  MathInParis2020 Cofund
-                </a>
-                doctoral programme of the Fondation Sciences Mathématiques de Paris.
-              </p>
-
-              <p class="hero-text" style="margin-top:0.9rem;">
-                For more details, you can consult my
-                <a
-                  href="Resume_Zodji.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="pill-inline"
-                >
-                  <span class="pill-icon">📄</span>
-                  <span>resume</span>
-                </a>.
-              </p>
-
-              <!-- Mail et téléphone : deux "boutons" sur la même ligne -->
-              <div class="hero-meta-row">
-                <div class="meta-pill">
-                  <span class="emoji">✉️</span>
-                  marcel(dot)zodji(at)univ-evry(dot)fr
-                </div>
-                <div class="meta-pill">
-                  <span class="emoji">☎️</span>
-                  +33 (0)1 64 85 35 60
-                </div>
+              <div class="meta-pill">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8.5 4.5h2.2c.5 0 .9.3 1 .8l.6 2.7c.1.5-.1 1-.5 1.2l-1.3.8a12.6 12.6 0 0 0 5.5 5.5l.8-1.3c.3-.4.8-.6 1.2-.5l2.7.6c.5.1.8.5.8 1v2.2c0 .6-.4 1-1 1C10 19.7 4.3 14 4.3 6.5c0-.6.4-1 1-1h3.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+                <span>+33 (0)1 64 85 35 60</span>
               </div>
             </div>
-          </div>
-        </section>
 
-        <!-- 2e cadran : Research overview -->
-        <section class="card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="icon">🔎</span> Research overview
-            </h2>
-            <div class="card-subtitle"></div>
-          </div>
-          <div class="card-body">
-            <div class="about-text">
-              <p>
-                My doctoral research focuses on free boundary problems for models 
-                describing the flow of fluid mixtures. The constituents of the mixture 
-                are assumed to be immiscible (for instance, gas bubbles in a liquid) 
-                and are separated by one or more interfaces of zero thickness. 
-                The objective is to investigate the propagation of the regularity of 
-                these interfaces over time; this involves establishing the well-posedness 
-                of the underlying models. We employ Hoff-type energy estimates together 
-                with Lagrangian changes of variables and a number of harmonic analysis tools.
-              </p>
-              <p>
-                Currently, I study a fluid–structure interaction model,
-                and the regularity of Lagrangian trajectories for solutions of the incompressible 
-                Euler equations. Both projects draw on the theory of Littlewood–Paley and 
-                on microlocal analysis.
-              </p>
-            </div>
-            <div class="pill-row">
-              <span class="pill"><span class="pill-icon">🌊</span>Euler and Navier–Stokes equations</span>
-              <span class="pill"><span class="pill-icon">⚪⚫</span>Two-fluid model</span>
-              <span class="pill">
-                <span class="pill-icon">
-                  <img
-                    src="free-boundary-icon.png"
-                    alt="Free boundary icon"
-                    class="icon-free-boundary"
-                  />
+            <div class="btn-row">
+              <a class="icon-btn" href="Resume_Zodji.pdf" target="_blank" rel="noopener noreferrer">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 3.8h7l3 3V20a1.8 1.8 0 0 1-1.8 1.8H7A1.8 1.8 0 0 1 5.2 20V5.6A1.8 1.8 0 0 1 7 3.8Z" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M14 3.8V7h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M8 11h8M8 14h8M8 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
                 </span>
-                Free boundary problem
-              </span>
-              <span class="pill">
-                <span class="pill-icon">
-                  <img
-                    src="bubly-liquid.png"
-                    alt="Bubbly liquid icon"
-                    class="icon-bubbly-liquid"
-                  />
-                </span>
-                Bubbly liquid
-              </span>
-            </div>
-            <div class="hero-links-row">
-              <button class="btn" onclick="showPanel('research-panel')">
-                <span class="btn-icon">📚</span>
-                <span>See publications</span>
-              </button>
+                <span>Resume</span>
+              </a>
 
-              <a
-                class="btn btn-compact"
-                href="https://orcid.org/0009-0001-5060-3446"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="btn-icon">🟢</span>
+              <a class="icon-btn" href="https://orcid.org/0009-0001-5060-3446" target="_blank" rel="noopener noreferrer">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M9.2 15.5V9.2M9.2 7.7h0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12.3 15.5V9.2h2.6a3.15 3.15 0 0 1 0 6.3h-2.6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  </svg>
+                </span>
                 <span>ORCID</span>
               </a>
 
-              <a
-                class="btn btn-compact"
-                href="https://arxiv.org/a/zodji_s_1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="btn-icon">📄</span>
+              <a class="icon-btn" href="https://arxiv.org/a/zodji_s_1" target="_blank" rel="noopener noreferrer">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7.5 18.5 16.7 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M6 7.2h5.2M12.8 16.8H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M6.5 18.2c0-1.2.9-2.2 2.1-2.2 1.1 0 2.1 1 2.1 2.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </span>
                 <span>ArXiv</span>
               </a>
 
-              <!-- Bouton HAL global : mets ici le lien vers ta page auteur HAL -->
-              <a
-                class="btn btn-compact"
-                href="https://cv.hal.science/marcel-zodji"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="btn-icon">📁</span>
+              <a class="icon-btn" href="https://cv.hal.science/marcel-zodji" target="_blank" rel="noopener noreferrer">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6.2 7.2h11.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M8 6.8V5.8A2.3 2.3 0 0 1 10.3 3.5h3.4A2.3 2.3 0 0 1 16 5.8v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M6 7.2V19a1.8 1.8 0 0 0 1.8 1.8h8.4A1.8 1.8 0 0 0 18 19V7.2" stroke="currentColor" stroke-width="1.8"/>
+                  </svg>
+                </span>
                 <span>HAL</span>
               </a>
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
 
-        <!-- 3e cadran : Mentoring -->
-        <section class="card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="icon">🤝</span> Mentoring
-            </h2>
-            <div class="card-subtitle"></div>
-          </div>
-          <div class="card-body">
-            <p class="assist-box">
-              I dedicate roughly an hour per week to supporting high 
-              school students with their maths exercises. Most of the time,
-              they are motivated, and a small amount of help is enough to help  
-              them feel more at ease with mathematics. I warmly encourage others to 
-              volunteer as well; you can find many  opportunities 
-              <a href="https://www.jeveuxaider.gouv.fr/missions-benevolat?activities.name=Soutien+scolaire+et+formation" 
-                 target="_blank" 
-                 rel="noopener noreferrer">here</a>.
-            </p>
-          </div>
-        </section>
-      </section>
+    <!-- RESEARCH -->
+    <section class="card" id="research">
+      <div class="section-title"><h2>🔎 Research</h2></div>
+      <p style="color: var(--muted); text-align: justify; font-size: 1.00rem;">
+        My doctoral research focuses on free boundary problems for models describing the flow of fluid mixtures.
+        The constituents are assumed to be immiscible (for instance, gas bubbles in a liquid) and are separated by
+        one or more interfaces of zero thickness. The objective is to investigate the persistance of interface regularity
+        over time; this involves, in particular, establishing well-posedness of the underlying models. I employ Hoff-type energy
+        estimates together with Lagrangian changes of variables and harmonic analysis tools.
+      </p>
+      <p style="margin-top:.75rem; color: var(--muted); text-align: justify; font-size: 1.00rem;">
+        Currently, I study a fluid–structure interaction model, and the regularity of Lagrangian trajectories for
+        solutions of the incompressible Euler equations. Both projects draw on Littlewood–Paley theory and microlocal analysis.
+      </p>
+    </section>
 
-      <!-- PANEL 2 : RESEARCH -->
-      <section class="section-panel" id="research-panel">
-        <!-- Publications -->
-        <section class="card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="icon">📚</span> Research
-            </h2>
-          </div>
-          <div class="card-body">
-            <div class="year-label">Preprint</div>
-            <ul class="pub-list">
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">4</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      Global-in-time Discontinuous Solutions for the Two-Phase Model of
-                      Compressible Fluids<br />
-                      with Density-Dependent Viscosity, 2025.
-                    </div>
-                    <div class="pub-journal">
-                      Submitted —
-                      <a
-                        href="https://arxiv.org/abs/2510.11383"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >ArXiv</a>
-                      <!-- Lien HAL pour le préprint -->
-                      ·
-                      <a
-                        href="https://hal.science/hal-05312124"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >HAL</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
+    <!-- PUBLICATIONS -->
+    <section class="card" id="publications">
+      <div class="section-title"><h2>📚 Publications</h2></div>
 
-            <div class="year-label">Peer-reviewed articles</div>
-            <ul class="pub-list">
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">3</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      A well-posedness result for the compressible two-fluid model with
-                      density-dependent viscosity, 2025.
-                    </div>
-                    <div class="pub-journal">
-                      J. Math. Fluid Mech.
-                    </div>
-                    <div class="pub-links">
-                      <a
-                        href="https://doi.org/10.1007/s00021-025-00954-y"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >Journal</a>
-                      ·
-                      <a
-                        href="https://arxiv.org/abs/2310.12525"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >ArXiv</a>
-                      ·
-                      <!-- Lien HAL pour l'article 3 -->
-                      <a
-                        href="https://hal.science/hal-04586675"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >HAL</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">2</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      Global-in-time well-posedness of the compressible Navier–Stokes
-                      equations with striated density, 2025.
-                    </div>
-                    <div class="pub-journal">
-                      Rev. Mat. Iberoam. (with X. Liao).
-                    </div>
-                    <div class="pub-links">
-                      <a
-                        href="https://doi.org/10.4171/rmi/1561"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >Journal</a>
-                      ·
-                      <a
-                        href="https://arxiv.org/abs/2405.11900"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >ArXiv</a>
-                      ·
-                      <!-- Lien HAL pour l'article 2 -->
-                      <a
-                        href="https://hal.science/hal-04586708"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >HAL</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">1</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      Discontinuous solutions for the Navier–Stokes equations with
-                      density-dependent viscosity, 2024.
-                    </div>
-                    <div class="pub-journal">
-                      Ann. Inst. H. Poincaré C.
-                    </div>
-                    <div class="pub-links">
-                      <a
-                        href="https://doi.org/10.4171/aihpc/145"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >Journal</a>
-                      ·
-                      <a
-                        href="https://arxiv.org/abs/2312.07578"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >ArXiv</a>
-                      ·
-                      <!-- Lien HAL pour l'article 1 -->
-                      <a
-                        href="https://hal.science/hal-04338811"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >HAL</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-
-            <div class="year-label">Theses</div>
-            <ul class="pub-list">
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">4</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      <span class="thesis-label">PhD thesis</span>:
-                      <em>Qualitative study of the interface between two compressible immiscible fluids</em>, 2025.
-                    </div>
-                    <div class="thesis-meta thesis-meta-indent">
-                      IMJ-PRG, Université Paris Cité. (<a
-                        href="https://u-paris.hal.science/tel-05212025"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >HAL</a>)
-                    </div>
-                    <div class="thesis-meta">
-                      <span class="role-label">Supervisors</span>:
-                      Cosmin Burtea, David Gérard-Varet.
-                    </div>
-                    <div class="thesis-meta">
-                      <span class="role-label">Advisor</span>:
-                      <a
-                        href="https://hdietert.github.io"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >Helge Dietert</a>.
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">3</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      <span class="thesis-label">Master thesis</span>:
-                      <em>Singular pressures in the mechanics of compressibles dynamics</em>, 2021.
-                    </div>
-                    <div class="thesis-meta thesis-meta-indent">
-                      IMJ-PRG, Université Paris Cité. (<a
-                        href="Manuscript_Master_2021.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >PDF</a>)
-                    </div>
-                    <div class="thesis-meta">
-                      <span class="role-label">Supervisors</span>:
-                      Cosmin Burtea, David Gérard-Varet.
-                    </div>
-                    <div class="thesis-meta">
-                      <span class="role-label">Advisor</span>:
-                      <a
-                        href="https://guillod.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >Julien Guillod</a>.
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">2</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      <span class="thesis-label">Master thesis</span>:
-                      <em>A result for transport equations and conservation with diffusion</em>, 2020.
-                    </div>
-                    <div class="thesis-meta thesis-meta-indent">
-                      IMSP, Université d'Abomey Calavi. (<a
-                        href="Manuscript_Master_2020.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >PDF</a>)
-                    </div>
-                    <div class="thesis-meta">
-                      <span class="role-label">Supervisor</span>:
-                      <a
-                        href="https://www.math.sciences.univ-nantes.fr/~depauw/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >Nicolas Depauw</a>
-                      (Nantes Université).
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="pub-item">
-                <div class="item-row">
-                  <span class="item-index">1</span>
-                  <div class="item-main">
-                    <div class="pub-title">
-                      <span class="thesis-label">Undergraduate thesis</span>:
-                      <em>Cauchy Lipschitz theorem</em>, 2018. (with Edah Franco Roberto)
-                    </div>
-                    <div class="thesis-meta thesis-meta-indent">
-                      IMSP, Université d'Abomey Calavi.
-                      (<a
-                        href="Manuscript_Undergraduate_2018.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >PDF</a>)
-                    </div>
-                    <div class="thesis-meta">
-                      <span class="role-label">Supervisor</span>:
-                      Leadi Liamidi.
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- Talks -->
-        <section class="card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="icon">🎤</span> Talks & presentations
-            </h2>
-          </div>
-          <div class="card-body">
-            <ul class="talk-list">
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">14</span>
-                  <div class="item-main">
-                    Nov. 12, 2025 – Online talk, School of Mathematical Sciences, Beijing Normal University, China.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">13</span>
-                  <div class="item-main">
-                    Oct. 27–31, 2025 – Poster, Workshop  “End of CRISIS”, Marseille (CIRM), France.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">12</span>
-                  <div class="item-main">
-                    Sept. 21–26, 2025 – Workshop “MathFlows' 25”, Porquerolles, France.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">11</span>
-                  <div class="item-main">
-                    June 23–27, 2025 – Poster, Summer school “Particles in Flow”, Bonn, Germany.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">10</span>
-                  <div class="item-main">
-                    June 17, 2025 – PhD thesis defense, IMJ-PRG, Université Paris Cité.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">9</span>
-                  <div class="item-main">
-                    April 15, 2025 – Séminaire MAC, Institut de Mathématiques de Toulouse, France.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">8</span>
-                  <div class="item-main">
-                    March 20, 2025 – Séminaire de l'équipe d'Analyse et EDP, LaMME, Université d'Évry.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">7</span>
-                  <div class="item-main">
-                    Sept. 2–4, 2024 – Meeting on Differential Equations in Ancona, Ancona, Italy.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">6</span>
-                  <div class="item-main">
-                    Feb. 23, 2024 – Séminaire EDPs2, LAMA, Université Savoie Mont Blanc.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">5</span>
-                  <div class="item-main">
-                    Jan. 31, 2024 – Séminaire des doctorant.es du LJLL, Paris.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">4</span>
-                  <div class="item-main">
-                    Jan. 8–9, 2024 – Poster, “Journées de lancement de l'ANR BOURGEONS”, Paris.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">3</span>
-                  <div class="item-main">
-                    Nov. 16–17, 2023 – Conference “Maths pour la Géophysique”, Amiens.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">2</span>
-                  <div class="item-main">
-                    July 25, 2023 – Working group “Nonlinear PDE”, Karlsruhe Institute of Technology, Germany.
-                  </div>
-                </div>
-              </li>
-              <li class="talk-item">
-                <div class="item-row">
-                  <span class="item-index">1</span>
-                  <div class="item-main">
-                    March 22, 2023 – Poster, “Journées Jeunes EDPistes”, Tours, France.
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-      </section>
-
-      <!-- PANEL 3 : TEACHING -->
-      <section class="section-panel" id="teaching-panel">
-        <section class="card card-teaching">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="icon">📘</span> Teaching
-            </h2>
-          </div>
-          <div class="card-body">
-            <div class="teach-section-title">
-              Université d'Évry-Val-d'Essonne
+      <div class="subhead">Preprint</div>
+      <ul class="num">
+        <li class="item">
+          <div class="row">
+            <div class="badge">4</div>
+            <div>
+              <div class="item-title">Global-in-time Discontinuous Solutions for the Two-Phase Model of Compressible Fluids with Density-Dependent Viscosity, 2025.</div>
+              <div class="item-meta">Submitted</div>
+              <div class="item-links">
+                <a href="https://arxiv.org/abs/2510.11383" target="_blank" rel="noopener noreferrer">ArXiv</a> ·
+                <a href="https://hal.science/hal-05312124" target="_blank" rel="noopener noreferrer">HAL</a>
+              </div>
             </div>
-            <ul class="teach-list">
-              <li class="teach-item">
-                <div class="teach-year-title">2025–2026 – Tutorials</div>
-                <ul>
-                  <li>
-                    Langage mathématique (L1 – Portail Math-Info,
-                    lectures by
-                    <a
-                      href="http://www.math-evry.cnrs.fr/members/abayad/welcome"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Abdelmejid Bayad</a>).
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
-            <div class="teach-section-title" style="margin-top:1.4rem;">
-              Université Paris Cité
-            </div>
-            <ul class="teach-list">
-              <li class="teach-item">
-                <div class="teach-year-title">2024–2025  – Tutorials</div>
-                <ul>
-                  <li>
-                    Elementary Mathematics (L1 Physics, lectures by
-                    Iro Bartzia).
-                  </li>
-                  <li>
-                    Mathematics for Biologists (L2 Bio, lectures by
-                    <a
-                      href="http://webusers.imj-prg.fr/~cosmin.burtea/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Cosmin Burtea</a>).
-                  </li>
-                  <li>
-                    Discrete Probabilities (L2 MIASHS, lectures by
-                    <a
-                      href="https://ncuneo.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Noé Cuneo</a>).
-                  </li>
-                  <li>
-                    Mathematics for Engineers (L2 CUPGE, lectures by
-                    <a
-                      href="https://www.ljll.fr/~bokanowski/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Olivier Bokanowski</a>).
-                  </li>
-                </ul>
-              </li>
-
-              <li class="teach-item">
-                <div class="teach-year-title">2023–2024 – Tutorials</div>
-                <ul>
-                  <li>
-                    Discrete Probabilities (L2 MIASHS, lectures by
-                    <a
-                      href="https://ncuneo.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Noé Cuneo</a>).
-                  </li>
-                  <li>
-                    Mathematics and Applications to Life Sciences (L1 PASS, lectures by
-                    <a
-                      href="https://webusers.imj-prg.fr/~denis.perrot/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Denis Perrot</a>).
-                  </li>
-                </ul>
-              </li>
-
-              <li class="teach-item">
-                <div class="teach-year-title">2022–2023</div>
-                <ul>
-                  <li>
-                    Tutorial: Discrete Probabilities (L2 MIASHS, lectures by
-                    <a
-                      href="https://perso.lpsm.paris/~laslier/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Benoît Laslier</a>).
-                  </li>
-                  <li>
-                    Computer lab sessions: Office Software and Internet Tools (L1 Maths-IT).
-                  </li>
-                </ul>
-              </li>
-
-              <li class="teach-item">
-                <div class="teach-year-title">2021–2022</div>
-                <ul>
-                  <li>
-                    Tutorial: Discrete Probabilities (L2 MIASHS, lectures by
-                    <a
-                      href="https://perso.lpsm.paris/~laslier/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >Benoît Laslier</a>).
-                  </li>
-                  <li>
-                    Computer lab sessions: Office Software and Internet Tools (L1 Maths-IT).
-                  </li>
-                </ul>
-              </li>
-            </ul>
           </div>
-        </section>
-      </section>
+        </li>
+      </ul>
 
-      <footer class="footer">
-        <small>© <span id="year">2025</span> Last update: Nov. 2025</small>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          ↑ Back to top
-        </button>
-      </footer>
-    </main>
-  </div>
+      <div class="subhead">Peer-reviewed articles</div>
+      <ul class="num">
+        <li class="item">
+          <div class="row">
+            <div class="badge">3</div>
+            <div>
+              <div class="item-title">A well-posedness result for the compressible two-fluid model with density-dependent viscosity, 2025.</div>
+              <div class="item-meta">J. Math. Fluid Mech.</div>
+              <div class="item-links">
+                <a href="https://doi.org/10.1007/s00021-025-00954-y" target="_blank" rel="noopener noreferrer">Journal</a> ·
+                <a href="https://arxiv.org/abs/2310.12525" target="_blank" rel="noopener noreferrer">ArXiv</a> ·
+                <a href="https://hal.science/hal-04586675" target="_blank" rel="noopener noreferrer">HAL</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="item">
+          <div class="row">
+            <div class="badge">2</div>
+            <div>
+              <div class="item-title">Global-in-time well-posedness of the compressible Navier–Stokes equations with striated density, 2025.</div>
+              <div class="item-meta">Rev. Mat. Iberoam. (with X. Liao).</div>
+              <div class="item-links">
+                <a href="https://doi.org/10.4171/rmi/1561" target="_blank" rel="noopener noreferrer">Journal</a> ·
+                <a href="https://arxiv.org/abs/2405.11900" target="_blank" rel="noopener noreferrer">ArXiv</a> ·
+                <a href="https://hal.science/hal-04586708" target="_blank" rel="noopener noreferrer">HAL</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="item">
+          <div class="row">
+            <div class="badge">1</div>
+            <div>
+              <div class="item-title">Discontinuous solutions for the Navier–Stokes equations with density-dependent viscosity, 2024.</div>
+              <div class="item-meta">Ann. Inst. H. Poincaré C.</div>
+              <div class="item-links">
+                <a href="https://doi.org/10.4171/aihpc/145" target="_blank" rel="noopener noreferrer">Journal</a> ·
+                <a href="https://arxiv.org/abs/2312.07578" target="_blank" rel="noopener noreferrer">ArXiv</a> ·
+                <a href="https://hal.science/hal-04338811" target="_blank" rel="noopener noreferrer">HAL</a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="subhead">Theses</div>
+      <ul class="num">
+        <li class="item">
+          <div class="row">
+            <div class="badge">4</div>
+            <div>
+              <div class="item-title">PhD thesis: <em>Qualitative study of the interface between two compressible immiscible fluids</em>, 2025.</div>
+              <div class="item-meta">IMJ-PRG, Université Paris Cité.</div>
+              <div class="item-links"><a href="https://u-paris.hal.science/tel-05212025" target="_blank" rel="noopener noreferrer">HAL</a></div>
+              <div class="item-meta" style="margin-top:.35rem;">Supervisors: Cosmin Burtea, David Gérard-Varet · Advisor: <a href="https://hdietert.github.io" target="_blank" rel="noopener noreferrer">Helge Dietert</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="item">
+          <div class="row">
+            <div class="badge">3</div>
+            <div>
+              <div class="item-title">Master thesis: <em>Singular pressures in the mechanics of compressibles dynamics</em>, 2021.</div>
+              <div class="item-meta">IMJ-PRG, Université Paris Cité.</div>
+              <div class="item-links"><a href="Manuscript_Master_2021.pdf" target="_blank" rel="noopener noreferrer">PDF</a></div>
+              <div class="item-meta" style="margin-top:.35rem;">Supervisors: Cosmin Burtea, David Gérard-Varet · Advisor: <a href="https://guillod.org" target="_blank" rel="noopener noreferrer">Julien Guillod</a></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="item">
+          <div class="row">
+            <div class="badge">2</div>
+            <div>
+              <div class="item-title">Master thesis: <em>A result for transport equations and conservation with diffusion</em>, 2020.</div>
+              <div class="item-meta">IMSP, Université d'Abomey Calavi.</div>
+              <div class="item-links"><a href="Manuscript_Master_2020.pdf" target="_blank" rel="noopener noreferrer">PDF</a></div>
+              <div class="item-meta" style="margin-top:.35rem;">Supervisor: <a href="https://www.math.sciences.univ-nantes.fr/~depauw/" target="_blank" rel="noopener noreferrer">Nicolas Depauw</a> (Nantes Université).</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="item">
+          <div class="row">
+            <div class="badge">1</div>
+            <div>
+              <div class="item-title">Undergraduate thesis: <em>Cauchy Lipschitz theorem</em>, 2018. (with Edah Franco Roberto)</div>
+              <div class="item-meta">IMSP, Université d'Abomey Calavi.</div>
+              <div class="item-links"><a href="Manuscript_Undergraduate_2018.pdf" target="_blank" rel="noopener noreferrer">PDF</a></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- PRESENTATIONS -->
+    <section class="card" id="presentations">
+      <div class="section-title"><h2>🎤 Presentations</h2></div>
+
+      <div class="subhead">2025</div>
+      <ul class="num">
+        <li class="item"><div class="row"><div class="badge">7</div><div class="present-title">Nov. 12, 2025 – Online talk, School of Mathematical Sciences, Beijing Normal University, China.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">6</div><div class="present-title">Oct. 27–31, 2025 – Poster, Workshop “End of CRISIS”, Marseille (CIRM), France.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">5</div><div class="present-title">Sept. 21–26, 2025 – Workshop “MathFlows' 25”, Porquerolles, France.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">4</div><div class="present-title">June 23–27, 2025 – Poster, Summer school “Particles in Flow”, Bonn, Germany.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">3</div><div class="present-title">June 17, 2025 – PhD thesis defense, IMJ-PRG, Université Paris Cité.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">2</div><div class="present-title">April 15, 2025 – Séminaire MAC, Institut de Mathématiques de Toulouse, France.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">1</div><div class="present-title">March 20, 2025 – Séminaire de l'équipe d'Analyse et EDP, LaMME, Université d'Évry, France.</div></div></li>
+      </ul>
+
+      <div class="subhead">2024</div>
+      <ul class="num">
+        <li class="item"><div class="row"><div class="badge">4</div><div class="present-title">Sept. 2–4, 2024 – Meeting on Differential Equations in Ancona, Ancona, Italy.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">3</div><div class="present-title">Feb. 23, 2024 – Séminaire EDPs2, LAMA, Université Savoie Mont Blanc, France.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">2</div><div class="present-title">Jan. 31, 2024 – Séminaire des doctorant.es du LJLL, Paris, France.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">1</div><div class="present-title">Jan. 8–9, 2024 – Poster, “Journées de lancement de l'ANR BOURGEONS”, Paris, France.</div></div></li>
+      </ul>
+
+      <div class="subhead">2023</div>
+      <ul class="num">
+        <li class="item"><div class="row"><div class="badge">3</div><div class="present-title">Nov. 16–17, 2023 – Conference “Maths pour la Géophysique”, Amiens, France.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">2</div><div class="present-title">July 25, 2023 – Working group “Nonlinear PDE”, Karlsruhe Institute of Technology, Germany.</div></div></li>
+        <li class="item"><div class="row"><div class="badge">1</div><div class="present-title">March 22, 2023 – Poster, “Journées Jeunes EDPistes”, Tours, France.</div></div></li>
+      </ul>
+    </section>
+
+    <!-- TEACHING -->
+    <section class="card" id="teaching">
+      <div class="section-title"><h2>📘 Teaching</h2></div>
+
+      <div class="subhead">Université d'Évry-Val-d'Essonne</div>
+      <div class="teach-card">
+        <div class="teach-title">2025–2026 — Tutorials</div>
+        <ul class="bullets">
+          <li>Mathematical Language (L1 – Portail Math-Info, lectures by <a href="http://www.math-evry.cnrs.fr/members/abayad/welcome" target="_blank" rel="noopener noreferrer">Abdelmejid Bayad</a>).</li>
+        </ul>
+      </div>
+
+      <div class="subhead">Université Paris Cité</div>
+      <div class="teach-card">
+        <div class="teach-title">2024–2025 — Tutorials</div>
+        <ul class="bullets">
+          <li>Elementary Mathematics (L1 Physics, lectures by Iro Bartzia).</li>
+          <li>Mathematics for Biologists (L2 Bio, lectures by <a href="http://webusers.imj-prg.fr/~cosmin.burtea/" target="_blank" rel="noopener noreferrer">Cosmin Burtea</a>).</li>
+          <li>Discrete Probabilities (L2 MIASHS, lectures by <a href="https://ncuneo.com/" target="_blank" rel="noopener noreferrer">Noé Cuneo</a>).</li>
+          <li>Mathematics for Engineers (L2 CUPGE, lectures by <a href="https://www.ljll.fr/~bokanowski/" target="_blank" rel="noopener noreferrer">Olivier Bokanowski</a>).</li>
+        </ul>
+      </div>
+
+      <div class="teach-card">
+        <div class="teach-title">2023–2024 — Tutorials</div>
+        <ul class="bullets">
+          <li>Discrete Probabilities (L2 MIASHS, lectures by <a href="https://ncuneo.com/" target="_blank" rel="noopener noreferrer">Noé Cuneo</a>).</li>
+          <li>Mathematics and Applications to Life Sciences (L1 PASS, lectures by <a href="https://webusers.imj-prg.fr/~denis.perrot/" target="_blank" rel="noopener noreferrer">Denis Perrot</a>).</li>
+        </ul>
+      </div>
+
+      <div class="teach-card">
+        <div class="teach-title">2022–2023</div>
+        <ul class="bullets">
+          <li>Tutorial: Discrete Probabilities (L2 MIASHS, lectures by <a href="https://perso.lpsm.paris/~laslier/" target="_blank" rel="noopener noreferrer">Benoît Laslier</a>).</li>
+          <li>Computer lab sessions: Office Software and Internet Tools (L1 Maths-IT).</li>
+        </ul>
+      </div>
+
+      <div class="teach-card">
+        <div class="teach-title">2021–2022</div>
+        <ul class="bullets">
+          <li>Tutorial: Discrete Probabilities (L2 MIASHS, lectures by <a href="https://perso.lpsm.paris/~laslier/" target="_blank" rel="noopener noreferrer">Benoît Laslier</a>).</li>
+          <li>Computer lab sessions: Office Software and Internet Tools (L1 Maths-IT).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MENTORING -->
+    <section class="card" id="mentoring">
+      <div class="section-title"><h2>🤝 Mentoring</h2></div>
+      <p style="color: var(--muted); text-align: justify; font-size: 1.00rem;">
+        I dedicate roughly an hour per week to supporting high school students with their maths exercises.
+        Most of the time, they are motivated, and a small amount of help is enough to help them feel more at ease
+        with mathematics. I warmly encourage others to volunteer as well; you can find opportunities
+        <a href="https://www.jeveuxaider.gouv.fr/missions-benevolat?activities.name=Soutien+scolaire+et+formation" target="_blank" rel="noopener noreferrer">here</a>.
+      </p>
+    </section>
+
+    <footer>
+      <small>© <span id="year">2025</span> · Last update: Nov. 2025</small>
+      <button class="to-top" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Back to top</button>
+    </footer>
+  </main>
 
   <script>
-    const navTabs = document.getElementById("navTabs");
     const navToggle = document.getElementById("navToggle");
-    const tabButtons = navTabs.querySelectorAll(".nav-tab");
-    const panels = document.querySelectorAll(".section-panel");
+    const navLinks = document.getElementById("navLinks");
 
-    function showPanel(id) {
-      panels.forEach((p) => p.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-
-      tabButtons.forEach((btn) => {
-        if (btn.dataset.target === id) {
-          btn.classList.add("active");
-        } else {
-          btn.classList.remove("active");
-        }
+    if (navToggle && navLinks) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
       });
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      navTabs.classList.remove("open");
+      navLinks.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
     }
 
-    tabButtons.forEach((btn) => {
-      btn.addEventListener("click", () => showPanel(btn.dataset.target));
-    });
+    const spyLinks = Array.from(document.querySelectorAll("[data-spy]"));
+    const sections = spyLinks.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
 
-    if (navToggle) {
-      navToggle.addEventListener("click", () => {
-        navTabs.classList.toggle("open");
-      });
+    const setActive = (id) => {
+      spyLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+    };
+
+    if ("IntersectionObserver" in window) {
+      const obs = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible && visible.target && visible.target.id) setActive(visible.target.id);
+      }, { threshold: [0.2, 0.35, 0.5, 0.65] });
+
+      sections.forEach(s => obs.observe(s));
     }
 
     document.getElementById("year").textContent = new Date().getFullYear();
