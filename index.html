@@ -207,13 +207,18 @@
     }
 
     .compact-list {
-      border-left: 4px solid #7a8796;
+      border-left: none;
       padding-left: 1.35rem;
       margin: 0.4rem 0 0;
       padding-left: 1.2rem;
     }
 
     .compact-list li { margin: 0.35rem 0; }
+
+    .no-sidebar-list .compact-list {
+      border-left:none;
+      padding-left:1.2rem;
+    }
 
     footer {
       max-width: var(--max-width);
@@ -370,7 +375,7 @@
         </div>
       </section>
 
-      <section class="section" id="talks">
+      <section class="section no-sidebar-list" id="talks">
         <h2>Scientific Talks</h2>
 
         <h3>2025</h3>
@@ -400,7 +405,7 @@
         </ul>
       </section>
 
-      <section class="section" id="teaching">
+      <section class="section no-sidebar-list" id="teaching">
         <h2>Teaching</h2>
 
         <h3>Université d'Évry-Val-d'Essonne</h3>
